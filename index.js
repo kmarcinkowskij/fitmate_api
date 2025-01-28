@@ -2,6 +2,9 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import fitmate_router from "./routes/router.js";
+import users_router from "./routes/users.js";
+import devs_router from "./routes/dev.js";
+import sports_router from "./routes/sports.js";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -11,7 +14,10 @@ const uri = `mongodb+srv://${db_login}:${db_password}@fitmate.unr7t.mongodb.net/
 const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true} };
 
 app.use(bodyParser.json());
-app.use(fitmate_router)
+app.use(fitmate_router);
+app.use('/users/', users_router);
+app.use('/dev/', devs_router);
+app.use('/sports/', sports_router);
 
 app.listen(PORT, async () => {
     try {
